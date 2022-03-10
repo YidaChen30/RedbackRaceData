@@ -9,15 +9,16 @@ import os
 def LoopAndFindFastest():
 
   #gets the file names of all the files in the directory
-  datafiles = os.listdir('D:/projects/RedbackRaceData/cardata/')
+  datafiles = os.listdir('cardata/')
 
   fastestTime = 1000000000000
   fastestFileName = ""
 
+
   for files in datafiles:
 
     #open a dataframe to be read with pandas
-    csvdf = pandas.read_csv(f"D:/projects/RedbackRaceData/cardata/{files}")
+    csvdf = pandas.read_csv(f"cardata/{files}")
 
 
     # gets the value of the last row in the column "acsys.CS.BestLap" which should hold the fastest lap time for the run

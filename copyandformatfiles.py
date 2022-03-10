@@ -3,13 +3,14 @@ import os
 import glob
 import shutil
 
+#KEEP IN MIND THIS FILE MIGHT NOT WORK IN YOUR COMPUTER AS MY FILES ARE IN MY D DRIVE
 def movefiles():
 
   #this is to keep track of the numbers of the files
   datanum = 0
 
   #get the names of the files in the directory where all the csvs are stored.
-  datafiles = os.listdir('D:/projects/RedbackRaceData/data0/')
+  datafiles = os.listdir('data0/')
 
   #loop through the list of files and start moving them into one file
   for files in datafiles:
@@ -21,7 +22,7 @@ def movefiles():
       tempdatanum = "0" + str(datanum)
 
     #copying out of their individual folders into one main folder.
-    shutil.copy("D:/projects/RedbackRaceData/data0/data0_" + tempdatanum + "/output.csv", "D:/projects/RedbackRaceData/cardata/output" + str(datanum) + ".csv")
+    shutil.copy("data0/data0_" + tempdatanum + "/output.csv", "cardata/output" + str(datanum) + ".csv")
   
     datanum = datanum + 1
 
