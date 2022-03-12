@@ -131,3 +131,4 @@ dmypy.json
 #data folders which store csvs
 cardata/
 data0/
+moredata/

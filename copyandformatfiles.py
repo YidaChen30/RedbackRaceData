@@ -1,6 +1,5 @@
 #Will go through all the csv files and print out the name of the one with the fastest time.
 import os
-import glob
 import shutil
 
 #KEEP IN MIND THIS FILE MIGHT NOT WORK IN YOUR COMPUTER AS MY FILES ARE IN MY D DRIVE
