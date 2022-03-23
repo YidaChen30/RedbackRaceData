@@ -3,13 +3,8 @@ import pandas as pd
 import os 
 import numpy as np
 
-def createDataframe():
-  cardatanames = os.listdir('../cardata')
 
-  inputdatanames = os.listdir('../carinputdata')
-
-
-  combinedDf = pd.DataFrame(columns=['File Name', 
+dfColumns = ['File Name', 
   'brakes_DATA_MAX_TORQUE', 
   'brakes_DATA_FRONT_SHARE',	
   'drivetrain_DIFFERENTIAL_POWER',
@@ -43,26 +38,47 @@ def createDataframe():
   'suspensions_REAR_DAMP_FAST_REBOUND',
   'tyres_FRONT_PRESSURE_STATIC',
   'tyres_REAR_PRESSURE_STATIC',
-  'Fastest Lap'])
+  'Fastest Lap']
 
+def createDataframe():
+  cardatanames = os.listdir('../cardata')
+
+  inputdatanames = os.listdir('../carinputdata')
+
+  combinedDf = pd.DataFrame(columns= dfColumns, index=['File Name'])
+
+  #get rid of the first line because for some reason dataframe is created with an empty row
+  combinedDf = combinedDf.iloc[1:]
+
+  # loop through 2 arrays at once wtf
   for (outnames, innames) in zip(cardatanames, inputdatanames):
     df = pd.read_csv( f'../cardata/{outnames}')
 
     df1 = pd.read_csv( f'../carinputdata/{innames}')
 
+    # start of the row which will be appended
     name = [innames]
-    values =  df1.transpose().iloc[1].to_list()
-    #test = np.concatenate((name, values))
 
+    #transpose the vertical values of the input file to horizontal
+    values =  df1.transpose().iloc[1].to_list()
+
+    #combine name of file and input values
     rowData = np.concatenate((name, values))
 
+    #combine the other stuff with best lap time
     rowData = np.append(rowData, [df.iloc[-1,5]])
     
-    print(rowData)
-    combinedDf = pd.concat([combinedDf, pd.Series(rowData)], axis=0)
-    break
+    print(combinedDf)
 
-  combinedDf.to_csv('./test.csv', index=False)
+    # turn that array into dataframe
+    rowData = pd.DataFrame(data=[rowData], columns= dfColumns)
+    print(rowData)
+    
+    #rowData.to_csv('./test2.csv', index=False)
+    
+    combinedDf = pd.concat([combinedDf, rowData])
+
+  combinedDf.to_csv('./combineddata.csv', index=0)
 
 if __name__ == "__main__":
   createDataframe()
