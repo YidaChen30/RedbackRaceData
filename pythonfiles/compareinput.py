@@ -6,7 +6,6 @@ import pandas as pd
 # this is for toe, in out.
 def compareInput():
 
-
   cardatanames = os.listdir('../cardata')
 
   inputdatanames = os.listdir('../carinputdata')

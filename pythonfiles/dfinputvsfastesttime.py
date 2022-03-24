@@ -38,6 +38,7 @@ dfColumns = ['File Name',
   'suspensions_REAR_DAMP_FAST_REBOUND',
   'tyres_FRONT_PRESSURE_STATIC',
   'tyres_REAR_PRESSURE_STATIC',
+  'SlipAngle_FR',
   'Fastest Lap']
 
 def createDataframe():
@@ -62,17 +63,23 @@ def createDataframe():
     #transpose the vertical values of the input file to horizontal
     values =  df1.transpose().iloc[1].to_list()
 
+    print(values)
+    # add in average slip angle
+    #print(type(df['SlipAngle_FR'].abs().mean()))
+    values.append(df['SlipAngle_FR'].abs().mean())
+
+    
     #combine name of file and input values
     rowData = np.concatenate((name, values))
 
     #combine the other stuff with best lap time
     rowData = np.append(rowData, [df.iloc[-1,5]])
     
-    print(combinedDf)
+    #print(combinedDf)
 
     # turn that array into dataframe
     rowData = pd.DataFrame(data=[rowData], columns= dfColumns)
-    print(rowData)
+    #print(rowData)
     
     #rowData.to_csv('./test2.csv', index=False)
     
