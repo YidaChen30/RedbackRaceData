@@ -43,12 +43,16 @@ def SlipToARB():
 		# Rebound to Slip -> Low should be understeer
 		# dataIn.append(dfIn.iloc[18]['value'])
 
-		# Rear_ARB
-		dataIn.append(dfIn.iloc[3]['value'])
+		# # Rear_ARB
+		# dataIn.append(dfIn.iloc[8]['value'])
+
+		# Multiplying front ARB and rear ARB with Front Toe and Front bump
+		dataIn.append((dfIn.iloc[7]['value'] / dfIn.iloc[8]['value']) * dfIn.iloc[11]['value'] * dfIn.iloc[16]['value'] * dfIn.iloc[18]['value'] * (dfIn.iloc[31]['value'] + dfIn.iloc[32]['value']))
 
 
-	df_new['Diff_Coast'] = dataIn
-	df_new.to_csv(f"NewSlipToDiff_Coast.csv", index=False)
+
+	df_new['Suspension & Pressure'] = dataIn
+	df_new.to_csv(f"SliptoSuspension&Pressure.csv", index=False)
 
 if __name__ == "__main__":
 	SlipToARB()
